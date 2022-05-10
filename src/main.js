@@ -1,4 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import store from './store'
+import '@/css/normalize.css'
 
-createApp(App).mount('#app')
+createApp(App)
+  .use(store)
+  .mount('#app')

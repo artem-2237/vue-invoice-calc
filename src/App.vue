@@ -1,26 +1,70 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <h1 class="title">Vue Invoice calc</h1>
+    <form-add />
+
+    <product-list />
+
+    <div class="footer-section">
+      <button
+          class="footer-section__delete btn"
+          type="button"
+          :disabled="$store.getters.selectedProducts.length === 0"
+          @click="deleteProducts"
+      >Delete</button>
+
+      <div class="footer-section__text">
+        <span>Total:</span>
+        <span>${{ $store.getters.sum }}</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import FormAdd from '@/components/FormAdd'
+import ProductList from '@/components/product/ProductList'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ProductList,
+    FormAdd,
+  },
+  created() {
+    this.$store.dispatch('loadProducts')
+  },
+  methods: {
+    deleteProducts() {
+      this.$store.commit('deleteProducts')
+    }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.container {
+  width: 700px;
+  margin: auto;
+  padding-top: 50px;
+}
+.title {
+  margin-bottom: 30px;
+}
+.footer-section {
+  display: flex;
+  justify-content: space-between;
+  &__text > span {
+    display: inline-block;
+    width: 137px;
+    padding-left: 8px;
+  }
+}
+.btn {
+  padding: 4px 15px;
+  cursor: pointer;
+  &[disabled] {
+    cursor: not-allowed;
+  }
 }
 </style>
