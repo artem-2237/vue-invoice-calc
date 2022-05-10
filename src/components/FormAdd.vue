@@ -10,25 +10,27 @@
           ref="inputName"
           class="input form-add__input input__primary"
           placeholder="Product name"
-          v-model="name"
+          v-model.trim="name"
       >
       <input
           type="number"
+          min="0"
           ref="inputPrice"
           class="input form-add__input input__secondary"
           placeholder="Price"
-          v-model="price"
+          v-model.number="price"
       >
       <input
           type="number"
+          min="0"
           ref="inputQty"
           class="input form-add__input input__secondary"
           placeholder="Qty"
-          v-model="quantity"
+          v-model.number="quantity"
       >
     </div>
 
-    <button class="form-add__submit-btn btn">Add</button>
+    <button class="form-add__submit-btn btn" :disabled="!name || !price || !quantity">Add</button>
   </form>
 </template>
 
